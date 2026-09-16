@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Listes prioritaires – Formations IA à distance | Champ Social</title>
+<meta name="description" content="Rejoignez la liste prioritaire d'une formation IA en ESSMS : classes à distance en petit comité, dates proposées dès qu'un groupe est constitué, accompagnement au financement.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#faf7f2; --paper:#ffffff; --ink:#1f2a2e; --muted:#5b676b; --line:#e5ded3;
+  --brand:#1f5c5a; --brand-2:#2f7d79; --accent:#d9803b; --soft:#eef4f2; --warn:#fff4e8;
+  --radius:14px; --shadow:0 10px 30px rgba(31,42,46,.08);
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.15;margin:0 0 .5em;font-weight:650}
+h1{font-size:clamp(2rem,4.6vw,3.3rem)} h2{font-size:clamp(1.6rem,3vw,2.2rem)} h3{font-size:1.2rem;font-weight:500}
+p{margin:0 0 1em} a{color:var(--brand)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+section{padding:72px 0}
+.eyebrow{display:inline-block;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);font-weight:600;margin-bottom:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;border:0;border-radius:999px;padding:14px 26px;font:600 1rem Inter,sans-serif;text-decoration:none;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(217,128,59,.35)}
+.btn.ghost{background:transparent;color:var(--brand);border:1.5px solid var(--brand)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow)}
+.grid{display:grid;gap:20px}
+@media(min-width:760px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}}
+
+/* nav */
+header.top{position:sticky;top:0;z-index:20;background:rgba(250,247,242,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:Fraunces,serif;font-size:1.25rem;color:var(--brand);text-decoration:none;font-weight:650}
+.logo span{color:var(--accent)}
+header.top .btn{padding:9px 18px;font-size:.9rem}
+
+/* hero */
+.hero{padding:64px 0 56px}
+.hero .grid{align-items:center}
+@media(min-width:900px){.hero .grid{grid-template-columns:1.15fr .85fr;gap:48px}}
+.hero p.lead{font-size:1.15rem;color:var(--muted);max-width:40ch}
+.checks{list-style:none;padding:0;margin:20px 0 28px}
+.checks li{padding-left:28px;position:relative;margin:8px 0}
+.checks li::before{content:"";position:absolute;left:0;top:.45em;width:16px;height:16px;border-radius:50%;background:var(--soft);box-shadow:inset 0 0 0 5px var(--brand-2)}
+.session{border-left:5px solid var(--accent)}
+.session .tag{display:inline-block;background:var(--warn);color:#9a5418;font-size:.78rem;font-weight:600;padding:4px 10px;border-radius:999px;margin-bottom:10px}
+.session dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:16px 0;font-size:.95rem}
+.session dt{color:var(--muted)} .session dd{margin:0;font-weight:500}
+.meter{margin:18px 0 8px}
+.meter .bar{display:flex;gap:6px}
+.meter .bar i{flex:1;height:10px;border-radius:5px;background:var(--line)}
+.meter .bar i.on{background:var(--brand-2)} .meter .bar i.goal{outline:2px dashed var(--accent);outline-offset:2px}
+.meter small{color:var(--muted)}
+
+/* portes */
+.portes .card{display:flex;flex-direction:column}
+.portes .card p{color:var(--muted);flex:1}
+.portes .num{font-family:Fraunces,serif;color:var(--accent);font-size:1.6rem}
+
+/* steps */
+.steps{counter-reset:s}
+.step{position:relative;padding-left:64px}
+.step::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:0;width:44px;height:44px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:600}
+.step p{color:var(--muted)}
+.band{background:var(--brand);color:#eaf3f1}
+.band h2,.band h3{color:#fff} .band .eyebrow{color:#f3c79f} .band p{color:#cfe2de}
+
+/* formations */
+.form-card h3{font-family:Fraunces,serif;font-weight:650}
+.pill{display:inline-block;font-size:.78rem;padding:3px 10px;border-radius:999px;background:var(--soft);color:var(--brand);margin:0 6px 6px 0;font-weight:500}
+
+/* financement */
+.fin li{margin:10px 0}
+.note{background:var(--warn);border-radius:10px;padding:14px 16px;font-size:.92rem;color:#7a4a1c}
+
+/* formulaire */
+#inscription{background:linear-gradient(180deg,var(--bg),var(--soft))}
+form{display:grid;gap:18px}
+fieldset{border:0;padding:0;margin:0;display:grid;gap:14px}
+legend{font-family:Fraunces,serif;font-size:1.1rem;margin-bottom:6px;color:var(--brand)}
+label{font-weight:500;font-size:.93rem;display:block;margin-bottom:6px}
+input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fff;color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--brand-2);border-color:transparent}
+.row{display:grid;gap:14px} @media(min-width:640px){.row{grid-template-columns:1fr 1fr}}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{margin:0;font-weight:400}
+.chips input{position:absolute;opacity:0}
+.chips span{display:inline-block;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:#fff;cursor:pointer;font-size:.92rem;transition:.15s}
+.chips input:checked+span{background:var(--brand);color:#fff;border-color:var(--brand)}
+.chips input:focus-visible+span{outline:2px solid var(--accent)}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:.88rem;color:var(--muted);font-weight:400}
+.progress{display:flex;gap:8px;margin-bottom:6px}
+.progress i{flex:1;height:5px;border-radius:3px;background:var(--line)} .progress i.on{background:var(--accent)}
+.stepnav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.fstep{display:none} .fstep.active{display:grid;gap:14px}
+.ok{display:none;text-align:center;padding:30px 10px}
+.ok.show{display:block}
+.err{color:#b3261e;font-size:.88rem;min-height:1.2em}
+
+/* faq */
+details{border-bottom:1px solid var(--line);padding:16px 0}
+summary{cursor:pointer;font-weight:600;list-style:none}
+summary::after{content:"+";float:right;color:var(--accent);font-size:1.3rem;line-height:1}
+details[open] summary::after{content:"–"}
+details p{margin-top:10px;color:var(--muted)}
+footer{padding:40px 0;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line)}
+.sticky-cta{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:30;display:none}
+@media(max-width:700px){.sticky-cta.show{display:inline-flex}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#">Champ <span>Social</span></a>
+    <a class="btn" href="#inscription">Rejoindre une liste</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap grid">
+    <div>
+      <span class="eyebrow">Formations IA en ESSMS · à distance · petit comité</span>
+      <h1>Une formation vous intéresse&nbsp;? Réservez votre place avant que la date existe.</h1>
+      <p class="lead">Inscrivez-vous sur la liste prioritaire de la formation qui vous concerne. Dès que 4 professionnels peuvent être réunis, nous vous proposons une session en visio, en premier.</p>
+      <ul class="checks">
+        <li>Sans engagement : vous exprimez une intention, pas un achat</li>
+        <li>Groupes de 4 à 10 personnes, issues de plusieurs établissements</li>
+        <li>Modalités de financement envoyées 3 semaines avant la session</li>
+      </ul>
+      <a class="btn" href="#inscription">Je rejoins la liste prioritaire →</a>
+      &nbsp; <a class="btn ghost" href="#fonctionnement">Comment ça marche</a>
+    </div>
+
+    <aside class="card session" aria-label="Exemple de session en constitution">
+      <span class="tag">Session en constitution</span>
+      <h3 style="font-family:Fraunces,serif;font-weight:650">IA au service des cadres et coordinateurs</h3>
+      <dl>
+        <dt>Format</dt><dd>Inter-établissements, en visio</dd>
+        <dt>Rythme</dt><dd>3 séances de 2 h</dd>
+        <dt>Période visée</dt><dd>Novembre 2026</dd>
+        <dt>Financement</dt><dd>Employeur, OPCO, ANFH… selon votre structure</dd>
+      </dl>
+      <div class="meter">
+        <div class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i class="goal"></i><i></i><i></i><i></i><i></i></div>
+        <small>Seuil d’ouverture : 4 participants · groupe cible : 6 à 8</small>
+      </div>
+      <a class="btn" style="width:100%;justify-content:center;margin-top:10px" href="#inscription" data-formation="cadres">Me préinscrire à cette session</a>
+      <p style="font-size:.8rem;color:var(--muted);margin:10px 0 0">Aperçu indicatif : dates et remplissage à relier aux données réelles.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- 3 PORTES -->
+<section class="portes" style="padding-top:20px">
+  <div class="wrap">
+    <span class="eyebrow">Votre situation</span>
+    <h2>Trois portes d’entrée, une même exigence</h2>
+    <div class="grid g3" style="margin-top:28px">
+      <div class="card">
+        <div class="num">01</div>
+        <h3>Je souhaite me former</h3>
+        <p>Seul·e ou avec un ou deux collègues. Rejoignez une liste prioritaire : vous serez informé·e en premier dès qu’une classe à distance peut s’ouvrir.</p>
+        <a class="btn ghost" href="#inscription" data-profil="individuel">Rejoindre une liste</a>
+      </div>
+      <div class="card">
+        <div class="num">02</div>
+        <h3>Nous souhaitons former une équipe</h3>
+        <p>À partir de 4 professionnels d’un même établissement, une classe dédiée (intra, en visio ou sur site) devient souvent plus avantageuse.</p>
+        <a class="btn ghost" href="#inscription" data-profil="equipe">Demander une classe dédiée</a>
+      </div>
+      <div class="card">
+        <div class="num">03</div>
+        <h3>Je cherche un financement</h3>
+        <p>Employeur, OPCO, ANFH, CPF via un parcours certifiant partenaire : nous étudions avec vous la solution la plus simple pour votre situation.</p>
+        <a class="btn ghost" href="#financement">Voir les pistes</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FONCTIONNEMENT -->
+<section id="fonctionnement" class="band">
+  <div class="wrap">
+    <span class="eyebrow">Comment ça marche</span>
+    <h2>De l’intention à la session, en 4 étapes</h2>
+    <div class="grid g2 steps" style="margin-top:32px;gap:32px 48px">
+      <div class="step"><h3>Vous rejoignez une liste</h3><p>Formation, créneaux préférés, période, financement envisagé. 2 minutes, sans engagement.</p></div>
+      <div class="step"><h3>Nous constituons le groupe</h3><p>Nous regroupons les demandes compatibles : même formation, créneaux proches. À 4 personnes, la session peut s’ouvrir.</p></div>
+      <div class="step"><h3>Vous recevez les dates en priorité</h3><p>Avant toute diffusion publique. Si vous êtes plusieurs du même établissement, nous vous proposons aussi une classe dédiée.</p></div>
+      <div class="step"><h3>3 semaines avant : vous confirmez</h3><p>Nous vous envoyons les modalités pour valider le financement (devis, convention, programme) et confirmer votre présence.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATIONS -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Listes ouvertes</span>
+    <h2>Deux formations pilotes</h2>
+    <p style="color:var(--muted);max-width:60ch">Partir des situations professionnelles plutôt que de la démonstration technologique. L’IA prépare, structure et propose ; le professionnel contextualise, vérifie, arbitre et décide.</p>
+    <div class="grid g2" style="margin-top:24px">
+      <div class="card form-card">
+        <span class="pill">3 × 2 h</span><span class="pill">Visio</span><span class="pill">4 à 10 pers.</span>
+        <h3>IA &amp; usages professionnels</h3>
+        <p style="color:var(--muted)">Pour les professionnels de l’accompagnement : écrits, préparation, synthèse, communication. Manipuler, comparer, garder la main, préserver la confidentialité des personnes accompagnées.</p>
+        <a class="btn" href="#inscription" data-formation="usages">Rejoindre cette liste</a>
+      </div>
+      <div class="card form-card">
+        <span class="pill">3 × 2 h</span><span class="pill">Visio</span><span class="pill">4 à 10 pers.</span>
+        <h3>IA au service des cadres et coordinateurs</h3>
+        <p style="color:var(--muted)">Pour chefs de service, coordinateurs, cadres : pilotage, organisation, écrits institutionnels, accompagnement des équipes dans des usages responsables.</p>
+        <a class="btn" href="#inscription" data-formation="cadres">Rejoindre cette liste</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINANCEMENT -->
+<section id="financement" style="background:var(--paper);border-block:1px solid var(--line)">
+  <div class="wrap grid g2" style="gap:48px;align-items:start">
+    <div>
+      <span class="eyebrow">Financement</span>
+      <h2>La question n’est pas « est-ce CPF ? », mais « comment la financer simplement ? »</h2>
+      <p style="color:var(--muted)">Indiquez la piste qui vous paraît la plus probable : nous vérifions sa faisabilité avant de vous proposer une date.</p>
+      <p class="note">Les règles de prise en charge évoluent et dépendent de votre structure. Aucune prise en charge n’est automatique : nous la vérifions au moment de la proposition.</p>
+    </div>
+    <ol class="fin">
+      <li><strong>Plan de développement des compétences de l’employeur</strong> — la voie la plus directe.</li>
+      <li><strong>OPCO (ex. OPCO Santé)</strong> ou <strong>ANFH</strong> pour la fonction publique hospitalière, selon les règles applicables à votre structure.</li>
+      <li><strong>Classe dédiée</strong> si vous êtes 4 ou plus d’un même établissement : un seul devis, souvent moins coûteux.</li>
+      <li><strong>CPF</strong>, via un parcours certifiant partenaire, lorsque le besoin le justifie.</li>
+      <li><strong>Financement personnel</strong> : parlons-en, nous étudierons les possibilités.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- FORMULAIRE -->
+<section id="inscription">
+  <div class="wrap" style="max-width:760px">
+    <div style="text-align:center;margin-bottom:28px">
+      <span class="eyebrow">Préinscription · sans engagement</span>
+      <h2>Rejoindre la liste prioritaire</h2>
+      <p style="color:var(--muted)">2 minutes. Vos réponses nous servent uniquement à constituer des groupes compatibles.</p>
+    </div>
+
+    <div class="card">
+      <div class="progress" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+      <form id="leadForm" novalidate>
+        <!-- étape 1 -->
+        <fieldset class="fstep active" data-step="1">
+          <legend>1. Quelle formation ?</legend>
+          <div>
+            <label for="formation">Formation souhaitée *</label>
+            <select id="formation" name="formation" required>
+              <option value="">— Choisir —</option>
+              <option value="usages">IA &amp; usages professionnels</option>
+              <option value="cadres">IA au service des cadres et coordinateurs</option>
+              <option value="juridique">IA et cadre juridique en ESSMS</option>
+              <option value="pilotage">IA et pilotage stratégique en ESSMS</option>
+              <option value="autre">Autre besoin (à préciser)</option>
+            </select>
+          </div>
+          <div id="autreBloc" hidden>
+            <label for="formation_autre">Précisez la formation ou le besoin *</label>
+            <input type="text" id="formation_autre" name="formation_autre" maxlength="150" placeholder="ex. IA et écrits professionnels, IA et protection des données…">
+          </div>
+          <div>
+            <label>Vous êtes *</label>
+            <div class="chips" role="radiogroup">
+              <label><input type="radio" name="profil" value="individuel" required><span>Seul·e</span></label>
+              <label><input type="radio" name="profil" value="2-3"><span>2 à 3 collègues</span></label>
+              <label><input type="radio" name="profil" value="equipe"><span>4 personnes ou plus</span></label>
+            </div>
+          </div>
+          <div>
+            <label>Format souhaité</label>
+            <div class="chips">
+              <label><input type="checkbox" name="format" value="inter-visio" checked><span>Inter en visio</span></label>
+              <label><input type="checkbox" name="format" value="intra-visio"><span>Classe dédiée en visio</span></label>
+              <label><input type="checkbox" name="format" value="intra-presentiel"><span>Sur site</span></label>
+            </div>
+          </div>
+          <div class="err" data-err="1"></div>
+          <div class="stepnav"><span></span><button type="button" class="btn" data-next>Continuer →</button></div>
+        </fieldset>
+
+        <!-- étape 2 -->
+        <fieldset class="fstep" data-step="2">
+          <legend>2. Vos disponibilités</legend>
+          <div>
+            <label>Créneaux préférés * <small style="color:var(--muted);font-weight:400">(plusieurs choix = groupe constitué plus vite)</small></label>
+            <div class="chips">
+              <label><input type="checkbox" name="creneau" value="matin"><span>Matin (9h–11h)</span></label>
+              <label><input type="checkbox" name="creneau" value="midi"><span>Mi-journée (11h–13h)</span></label>
+              <label><input type="checkbox" name="creneau" value="apres-midi"><span>Après-midi (14h–16h)</span></label>
+              <label><input type="checkbox" name="creneau" value="fin-journee"><span>Fin de journée (16h–18h)</span></label>
+            </div>
+          </div>
+          <div>
+            <label>Jours possibles</label>
+            <div class="chips">
+              <label><input type="checkbox" name="jours" value="lundi"><span>Lun</span></label>
+              <label><input type="checkbox" name="jours" value="mardi"><span>Mar</span></label>
+              <label><input type="checkbox" name="jours" value="mercredi"><span>Mer</span></label>
+              <label><input type="checkbox" name="jours" value="jeudi"><span>Jeu</span></label>
+              <label><input type="checkbox" name="jours" value="vendredi"><span>Ven</span></label>
+            </div>
+          </div>
+          <div>
+            <label>Période souhaitée</label>
+            <div class="chips">
+              <label><input type="checkbox" name="periode" value="2026-11"><span>Nov. 2026</span></label>
+              <label><input type="checkbox" name="periode" value="2026-12"><span>Déc. 2026</span></label>
+              <label><input type="checkbox" name="periode" value="2027-T1"><span>Janv.–mars 2027</span></label>
+              <label><input type="checkbox" name="periode" value="indifferent"><span>Dès que possible</span></label>
+            </div>
+          </div>
+          <div>
+            <label for="financement_piste">Financement envisagé</label>
+            <select id="financement_piste" name="financement">
+              <option value="a-etudier">Je ne sais pas encore, à étudier</option>
+              <option value="employeur">Employeur (plan de développement des compétences)</option>
+              <option value="opco">OPCO (ex. OPCO Santé)</option>
+              <option value="anfh">ANFH</option>
+              <option value="cpf">CPF</option>
+              <option value="personnel">Financement personnel</option>
+            </select>
+          </div>
+          <div class="err" data-err="2"></div>
+          <div class="stepnav"><button type="button" class="btn ghost" data-prev>← Retour</button><button type="button" class="btn" data-next>Continuer →</button></div>
+        </fieldset>
+
+        <!-- étape 3 -->
+        <fieldset class="fstep" data-step="3">
+          <legend>3. Vos coordonnées</legend>
+          <div class="row">
+            <div><label for="prenom">Prénom *</label><input type="text" id="prenom" name="prenom" required autocomplete="given-name"></div>
+            <div><label for="nom">Nom *</label><input type="text" id="nom" name="nom" required autocomplete="family-name"></div>
+          </div>
+          <div class="row">
+            <div><label for="email">E-mail professionnel *</label><input type="email" id="email" name="email" required autocomplete="email"></div>
+            <div><label for="tel">Téléphone</label><input type="tel" id="tel" name="tel" autocomplete="tel"></div>
+          </div>
+          <div class="row">
+            <div><label for="fonction">Fonction *</label><input type="text" id="fonction" name="fonction" required placeholder="ex. cheffe de service, éducateur…"></div>
+            <div>
+              <label for="type_essms">Type de structure</label>
+              <select id="type_essms" name="type_essms">
+                <option value="">— Choisir —</option>
+                <option>MECS / Protection de l’enfance</option><option>ITEP / DITEP</option><option>IME / SESSAD</option>
+                <option>ESAT / Foyer / FAM / MAS</option><option>EHPAD / SSIAD</option><option>CHRS / Insertion</option>
+                <option>Siège associatif</option><option>Autre</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div><label for="etablissement">Établissement / association</label><input type="text" id="etablissement" name="etablissement" autocomplete="organization"></div>
+            <div><label for="cp">Code postal</label><input type="text" id="cp" name="cp" inputmode="numeric" maxlength="5"></div>
+          </div>
+          <div><label for="message">Un besoin particulier&nbsp;?</label><textarea id="message" name="message" rows="3" placeholder="Situation professionnelle à travailler, contraintes, questions…"></textarea></div>
+          <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+            <label for="site_web">Ne pas remplir ce champ</label>
+            <input type="text" id="site_web" name="site_web" tabindex="-1" autocomplete="off">
+          </div>
+          <label class="consent"><input type="checkbox" name="consentement" value="oui" required> J’accepte que Champ Social utilise ces informations pour me recontacter au sujet de cette formation. Aucune revente, désinscription sur simple demande.</label>
+          <div class="err" data-err="3"></div>
+          <div class="stepnav"><button type="button" class="btn ghost" data-prev>← Retour</button><button type="submit" class="btn">Rejoindre la liste prioritaire</button></div>
+        </fieldset>
+      </form>
+
+      <div class="ok" id="ok" role="status">
+        <h3 style="font-family:Fraunces,serif;font-size:1.6rem">C’est noté, merci&nbsp;!</h3>
+        <p>Vous êtes sur la liste prioritaire <strong id="okFormation"></strong>.</p>
+        <p style="color:var(--muted)">Dès qu’un groupe compatible est constitué, vous recevez une proposition de dates en premier. Les modalités de financement et de confirmation vous parviennent 3 semaines avant la session.</p>
+        <p style="color:var(--muted);font-size:.9rem">Un collègue pourrait être intéressé&nbsp;? Chaque inscription rapproche l’ouverture de la session.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="wrap" style="max-width:760px">
+    <span class="eyebrow">Questions fréquentes</span>
+    <h2>Avant de vous inscrire</h2>
+    <details><summary>Est-ce que je m’engage en rejoignant la liste&nbsp;?</summary><p>Non. Vous exprimez une intention. L’inscription définitive n’intervient qu’après réception des dates, du devis et validation du financement.</p></details>
+    <details><summary>Et si le groupe ne se constitue pas&nbsp;?</summary><p>Vous restez sur la liste. Nous vous tenons informé·e et pouvons vous proposer une date alternative ou une autre formule.</p></details>
+    <details><summary>Pourquoi des petits groupes&nbsp;?</summary><p>Pour préserver les échanges, les exercices et le travail sur des situations professionnelles réelles, ce qu’une grande classe virtuelle ne permet pas.</p></details>
+    <details><summary>Nous sommes plusieurs du même établissement.</summary><p>À partir de 4 personnes, une classe dédiée est souvent plus économique et permet de travailler sur votre contexte institutionnel. Nous vous proposerons les deux options.</p></details>
+    <details><summary>Faut-il du matériel particulier&nbsp;?</summary><p>Un ordinateur avec caméra et micro, une connexion stable. Les prérequis techniques et le lien de connexion vous sont communiqués avant la session.</p></details>
+    <div style="text-align:center;margin-top:36px"><a class="btn" href="#inscription">Je rejoins la liste prioritaire →</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Champ Social · Formations IA en ESSMS · <a href="#">Mentions légales</a> · <a href="#">Confidentialité</a></div>
+</footer>
+
+<a class="btn sticky-cta" href="#inscription">Rejoindre la liste</a>
+
+<script>
+/* === CONFIGURATION ===
+   Collez ici l’URL du déploiement Google Apps Script (Web App) pour enregistrer dans le Google Sheet.
+   Laissé vide : mode démonstration (rien n’est envoyé, les données s’affichent dans la console). */
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw9RxP4IVsoqe1HyAZ5224lg5vwN6wtjYFb-QxE9ksuZhuExGYf8STXdIzx6PScE2qP/exec";
+
+const FORM_TOKEN = "cs-liste-2026";           // doit être identique à TOKEN dans le script Google
+const PAGE_OUVERTE = Date.now();               // sert à mesurer le temps de remplissage
+const form = document.getElementById('leadForm');
+const steps = [...form.querySelectorAll('.fstep')];
+const bars = [...document.querySelectorAll('.progress i')];
+let cur = 0;
+const labels = {usages:"« IA & usages professionnels »", cadres:"« IA au service des cadres et coordinateurs »", juridique:"« IA et cadre juridique en ESSMS »", pilotage:"« IA et pilotage stratégique en ESSMS »"};
+const autreBloc = document.getElementById('autreBloc');
+form.formation.addEventListener('change',()=>{ autreBloc.hidden = form.formation.value!=='autre'; if(!autreBloc.hidden) form.formation_autre.focus(); });
+
+function show(i){
+  steps.forEach((s,k)=>s.classList.toggle('active',k===i));
+  bars.forEach((b,k)=>b.classList.toggle('on',k<=i));
+  cur=i;
+}
+function checked(name){return [...form.querySelectorAll(`[name="${name}"]:checked`)].map(e=>e.value)}
+function validate(i){
+  const err = form.querySelector(`[data-err="${i+1}"]`); err.textContent="";
+  if(i===0){
+    if(!form.formation.value) return err.textContent="Choisissez une formation.",false;
+    if(form.formation.value==='autre' && !form.formation_autre.value.trim()) return err.textContent="Précisez la formation souhaitée.",false;
+    if(!checked('profil').length) return err.textContent="Indiquez si vous êtes seul·e ou plusieurs.",false;
+  }
+  if(i===1 && !checked('creneau').length) return err.textContent="Choisissez au moins un créneau.",false;
+  if(i===2){
+    for(const id of ['prenom','nom','fonction']) if(!form[id].value.trim()) return err.textContent="Merci de compléter les champs obligatoires.",false;
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email.value)) return err.textContent="Adresse e-mail invalide.",false;
+    if(!form.consentement.checked) return err.textContent="Merci d’accepter d’être recontacté·e.",false;
+  }
+  return true;
+}
+form.addEventListener('click',e=>{
+  if(e.target.matches('[data-next]') && validate(cur)) show(cur+1);
+  if(e.target.matches('[data-prev]')) show(cur-1);
+});
+
+/* Préremplissage depuis les boutons */
+document.querySelectorAll('[data-formation],[data-profil]').forEach(a=>a.addEventListener('click',()=>{
+  if(a.dataset.formation){ form.formation.value=a.dataset.formation; autreBloc.hidden=true; }
+  if(a.dataset.profil){
+    const r=form.querySelector(`[name=profil][value="${a.dataset.profil}"]`); if(r) r.checked=true;
+    if(a.dataset.profil==='equipe') form.querySelector('[name=format][value="intra-visio"]').checked=true;
+  }
+}));
+
+form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  if(!validate(2)) return;
+  /* Anti-robots : champ piège rempli ou formulaire rempli en moins de 5 s → on simule un succès sans rien envoyer */
+  const duree = Date.now()-PAGE_OUVERTE;
+  if(form.site_web.value || duree < 5000){
+    form.style.display='none'; document.querySelector('.progress').style.display='none';
+    document.getElementById('ok').classList.add('show'); return;
+  }
+  const data = {
+    horodatage:new Date().toISOString(),
+    formation:form.formation.value==='autre' ? 'autre : '+form.formation_autre.value.trim() : form.formation.value, profil:checked('profil').join(), format:checked('format').join(', '),
+    creneaux:checked('creneau').join(', '), jours:checked('jours').join(', '), periode:checked('periode').join(', '),
+    financement:form.financement.value, prenom:form.prenom.value.trim(), nom:form.nom.value.trim(),
+    email:form.email.value.trim(), tel:form.tel.value.trim(), fonction:form.fonction.value.trim(),
+    type_essms:form.type_essms.value, etablissement:form.etablissement.value.trim(), cp:form.cp.value.trim(),
+    message:form.message.value.trim(), site_web:form.site_web.value, duree_ms:duree, token:FORM_TOKEN, source:new URLSearchParams(location.search).get('utm_source')||'direct'
+  };
+  const btn=form.querySelector('[type=submit]'); btn.disabled=true; btn.textContent="Envoi…";
+  try{
+    if(SCRIPT_URL){
+      await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)});
+    } else {
+      console.log("[Mode démo] Données qui seraient envoyées au Google Sheet :", data);
+    }
+    form.style.display='none'; document.querySelector('.progress').style.display='none';
+    document.getElementById('okFormation').textContent=labels[data.formation]||('« '+data.formation.replace(/^autre : /,'')+' »');
+    document.getElementById('ok').classList.add('show');
+  }catch(err){
+    form.querySelector('[data-err="3"]').textContent="Envoi impossible pour le moment. Réessayez ou écrivez-nous.";
+    btn.disabled=false; btn.textContent="Rejoindre la liste prioritaire";
+  }
+});
+
+/* CTA mobile */
+const cta=document.querySelector('.sticky-cta'), target=document.getElementById('inscription');
+addEventListener('scroll',()=>{const r=target.getBoundingClientRect();cta.classList.toggle('show',scrollY>500&&(r.top>innerHeight||r.bottom<0))},{passive:true});
+</script>
+</body>
+</html>
