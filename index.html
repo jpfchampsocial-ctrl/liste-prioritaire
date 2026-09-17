@@ -116,6 +116,16 @@ footer{padding:40px 0;background:var(--anthracite);color:#c9cacb;font-size:.88re
 footer .wrap{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
 footer img{height:84px;width:auto}
 footer a{color:#fff}
+.histoire{padding:56px 0;background:var(--paper);border-top:1px solid var(--line)}
+.histoire .grid{align-items:start}
+@media(min-width:860px){.histoire .grid{grid-template-columns:1.6fr 1fr;gap:48px}}
+.histoire p{color:var(--muted);font-size:.97rem}
+.contact{border-left:3px solid var(--accent);padding:4px 0 4px 20px}
+.contact h3{font-size:1rem;margin-bottom:12px}
+.contact ul{list-style:none;padding:0;margin:0}
+.contact li{margin:6px 0}
+.contact a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}
+.contact a:hover{color:var(--accent);border-color:var(--accent)}
 .sticky-cta{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:30;display:none}
 @media(max-width:700px){.sticky-cta.show{display:inline-flex}}
 </style>
@@ -403,6 +413,27 @@ footer a{color:#fff}
     <details><summary>Nous sommes plusieurs du même établissement.</summary><p>À partir de 4 personnes, une classe dédiée est souvent plus économique et permet de travailler sur votre contexte institutionnel. Nous vous proposerons les deux options.</p></details>
     <details><summary>Faut-il du matériel particulier&nbsp;?</summary><p>Un ordinateur avec caméra et micro, une connexion stable. Les prérequis techniques et le lien de connexion vous sont communiqués avant la session.</p></details>
     <div style="text-align:center;margin-top:36px"><a class="btn" href="#inscription">Je rejoins la liste prioritaire →</a></div>
+  </div>
+</section>
+
+<!-- NOTRE HISTOIRE -->
+<section class="histoire" aria-labelledby="histoire-titre">
+  <div class="wrap grid">
+    <div>
+      <span class="eyebrow">Depuis 1995</span>
+      <h2 id="histoire-titre" style="font-size:1.5rem">Notre histoire</h2>
+      <p>Champ social est à la fois une maison d’édition indépendante, un organisme de formation continue, un service d’accompagnement au développement de projets de dispositifs sociaux et culturels, et depuis peu un cabinet d’évaluation.</p>
+      <p>Ces quatre activités se déploient dans les secteurs du travail social et médico-social, des actions sanitaires et des pédagogies inclusives.</p>
+      <p style="margin-bottom:0">Fondée en 1995, l’entreprise s’est employée à constituer un croisement d’expériences multiples dans les domaines du handicap, de l’enfance et de la jeunesse à protéger, de la formation des adultes ou encore de la pédagogie.</p>
+    </div>
+    <div class="contact">
+      <h3>Nous contacter</h3>
+      <ul>
+        <li><a href="mailto:contact.champsocial@gmail.com">contact.champsocial@gmail.com</a></li>
+        <li><a href="tel:+33466291004">04 66 29 10 04</a></li>
+        <li><a href="https://www.champsocial.com/" target="_blank" rel="noopener">www.champsocial.com</a></li>
+      </ul>
+    </div>
   </div>
 </section>
 
