@@ -126,6 +126,20 @@ footer a{color:#fff}
 .contact li{margin:6px 0}
 .contact a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}
 .contact a:hover{color:var(--accent);border-color:var(--accent)}
+.catalogue{margin-top:28px;display:grid;gap:18px;align-items:center;background:var(--anthracite);color:#e9e9e9;border-radius:var(--radius);padding:26px 28px;border-left:5px solid var(--accent)}
+@media(min-width:860px){.catalogue{grid-template-columns:1.5fr auto}}
+.catalogue h3{color:#fff;font-size:1.15rem;margin-bottom:6px}
+.catalogue p{color:#c9cacb;margin:0;font-size:.95rem}
+.catalogue .actions{display:flex;gap:10px;flex-wrap:wrap}
+.catalogue .btn.ghost{color:#fff;border-color:#8a8c8e}
+.catalogue .btn.ghost:hover{background:#fff;color:var(--anthracite)}
+.lien-catalogue{display:inline-block;margin-top:8px;font-size:.88rem;color:var(--brand);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;font-family:inherit}
+dialog.flip{width:min(1100px,96vw);height:min(760px,90vh);padding:0;border:0;border-radius:var(--radius);overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog.flip::backdrop{background:rgba(30,31,33,.7)}
+dialog.flip .bar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 16px;background:var(--anthracite);color:#fff;font-size:.9rem}
+dialog.flip .bar a{color:#fff}
+dialog.flip .bar button{background:none;border:1px solid #8a8c8e;color:#fff;border-radius:999px;padding:4px 12px;cursor:pointer;font:inherit}
+dialog.flip iframe{width:100%;height:calc(100% - 46px);border:0;display:block;background:#eee}
 .sticky-cta{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:30;display:none}
 @media(max-width:700px){.sticky-cta.show{display:inline-flex}}
 </style>
@@ -236,6 +250,16 @@ footer a{color:#fff}
         <a class="btn" href="#inscription" data-formation="cadres">Rejoindre cette liste</a>
       </div>
     </div>
+    <div class="catalogue">
+      <div>
+        <h3>Consulter le catalogue des formations IA</h3>
+        <p>Objectifs, contenus, durées et modalités de chaque formation. Les programmes s’adaptent à votre contexte et sont révisés au moins tous les 7 à 8 mois, pour suivre les évolutions technologiques et celles du secteur social et médico-social.</p>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn" data-open-catalogue>Feuilleter le catalogue</button>
+        <a class="btn ghost" href="https://www.champsocialnumerique.com/formations-essms" target="_blank" rel="noopener">Voir sur notre site</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -285,6 +309,7 @@ footer a{color:#fff}
               <option value="autre">Autre besoin (à préciser)</option>
             </select>
           </div>
+          <button type="button" class="lien-catalogue" data-open-catalogue>Besoin de comparer ? Feuilleter le catalogue des formations</button>
           <div id="autreBloc" hidden>
             <label for="formation_autre">Précisez la formation ou le besoin *</label>
             <input type="text" id="formation_autre" name="formation_autre" maxlength="150" placeholder="ex. IA et écrits professionnels, IA et protection des données…">
@@ -441,6 +466,14 @@ footer a{color:#fff}
   <div class="wrap"><img src="https://0y8x.mj.am/img2/0y8x/749bbd8e-4929-4406-aac3-4f4ed0a00217/content" alt="Champ Social Numérique" width="88" height="84" style="filter:brightness(0) invert(1)"><div>Champ Social · Formations IA en ESSMS<br><a href="mentions-legales.html">Mentions légales</a> · <a href="mentions-legales.html#confidentialite">Confidentialité</a></div></div>
 </footer>
 
+<dialog class="flip" id="catalogue" aria-label="Catalogue des formations IA">
+  <div class="bar">
+    <strong>Catalogue des formations IA · Champ Social</strong>
+    <span><a href="https://online.fliphtml5.com/qzpjy/formations_ia_champ_social_link-1/" target="_blank" rel="noopener">Ouvrir dans un nouvel onglet</a> &nbsp; <button type="button" data-close-catalogue>Fermer ✕</button></span>
+  </div>
+  <iframe title="Catalogue des formations IA Champ Social" data-src="https://online.fliphtml5.com/qzpjy/formations_ia_champ_social_link-1/" allowfullscreen></iframe>
+</dialog>
+
 <a class="btn sticky-cta" href="#inscription">Rejoindre la liste</a>
 
 <script>
@@ -527,6 +560,15 @@ form.addEventListener('submit',async e=>{
     btn.disabled=false; btn.textContent="Rejoindre la liste prioritaire";
   }
 });
+
+/* Catalogue (flipbook chargé seulement à l'ouverture) */
+const dlg=document.getElementById('catalogue');
+document.querySelectorAll('[data-open-catalogue]').forEach(bt=>bt.addEventListener('click',()=>{
+  const fr=dlg.querySelector('iframe'); if(!fr.src) fr.src=fr.dataset.src;
+  if(typeof dlg.showModal==='function') dlg.showModal(); else window.open(fr.dataset.src,'_blank');
+}));
+dlg.querySelector('[data-close-catalogue]').addEventListener('click',()=>dlg.close());
+dlg.addEventListener('click',e=>{ if(e.target===dlg) dlg.close(); });
 
 /* CTA mobile */
 const cta=document.querySelector('.sticky-cta'), target=document.getElementById('inscription');
