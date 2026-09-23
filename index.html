@@ -213,7 +213,7 @@ dialog.flip iframe{width:100%;height:calc(100% - 46px);border:0;display:block;ba
       <dl>
         <dt>Format</dt><dd>Inter-établissements, en visio</dd>
         <dt>Rythme</dt><dd>3 séances de 2 h</dd>
-        <dt>Période visée</dt><dd>Novembre 2026</dd>
+        <dt>Période visée</dt><dd id="periodeVisee">à venir</dd>
         <dt>Financement</dt><dd>OPCO ou budget formation · 250 € / personne dès 6 inscrits</dd>
       </dl>
       <div class="meter">
@@ -306,8 +306,8 @@ dialog.flip iframe{width:100%;height:calc(100% - 46px);border:0;display:block;ba
   <div class="wrap grid g2" style="gap:48px;align-items:start">
     <div>
       <span class="eyebrow">Financement &amp; tarifs</span>
-      <h2>Plus le groupe se constitue, plus le coût par personne baisse</h2>
-      <p style="color:var(--muted)">C’est tout l’intérêt des listes prioritaires : regrouper des professionnels permet de proposer un tarif par participant nettement plus bas, pour la même exigence pédagogique.</p>
+      <h2>Du groupe constitué à l’accompagnement individuel</h2>
+      <p style="color:var(--muted)">La jauge se lit du tarif le plus accessible au plus individualisé. C’est tout l’intérêt des listes prioritaires : plus le groupe se constitue, plus le coût par participant baisse, à exigence pédagogique constante.</p>
       <p style="color:var(--muted)">La très grande majorité de nos formations sont prises en charge par <strong>votre OPCO</strong> (OPCO Santé, Uniformation…) ou par le budget formation de votre établissement. Nous vous transmettons devis, programme et convention pour constituer le dossier.</p>
       <p class="note">Tarifs indicatifs par participant, en visioconférence. Une journée représente 6 h de formation, réparties en trois séances de 2 h ; une demi-journée, 4 h. Les règles de prise en charge dépendent de votre structure et de votre financeur : certains demandent le dépôt du dossier plusieurs semaines avant le début de la formation.</p>
     </div>
@@ -315,14 +315,9 @@ dialog.flip iframe{width:100%;height:calc(100% - 46px);border:0;display:block;ba
     <div>
       <ul class="tarifs">
         <li class="tarif">
-          <div class="haut"><span class="titre">Individuel ou binôme</span><span class="prix">420 € <small>/ personne / demi-journée</small></span></div>
-          <div class="jauge" aria-hidden="true"><i style="width:100%"></i></div>
-          <div class="bas"><span class="seuil">1 à 2 personnes</span><span class="opco">Finançable OPCO</span> <span class="duree">Demi-journée de 4 h en visio, accompagnement rapproché</span></div>
-        </li>
-        <li class="tarif">
-          <div class="haut"><span class="titre">Classe dédiée à votre établissement</span><span class="prix">350 € <small>/ personne / jour</small></span></div>
-          <div class="jauge" aria-hidden="true"><i style="width:83%"></i></div>
-          <div class="bas"><span class="seuil">dès 4 personnes</span><span class="opco">Finançable OPCO</span> <span class="duree">Vos situations, vos écrits, votre contexte institutionnel</span></div>
+          <div class="haut"><span class="titre">Établissements partenaires</span><span class="prix">180 € <small>/ jour / personne</small></span></div>
+          <div class="jauge" aria-hidden="true"><i style="width:43%"></i></div>
+          <div class="bas"><span class="seuil">dès 8 personnes</span><span class="opco">Finançable OPCO</span> <span class="duree">Inscription individuelle réglée par l’employeur</span></div>
         </li>
         <li class="tarif">
           <div class="haut"><span class="titre">Classe inter-établissements</span><span class="prix">250 € <small>/ personne / jour</small></span></div>
@@ -330,9 +325,15 @@ dialog.flip iframe{width:100%;height:calc(100% - 46px);border:0;display:block;ba
           <div class="bas"><span class="seuil">dès 6 personnes</span><span class="opco">Finançable OPCO</span> <span class="duree">Groupe mixte, croisement des pratiques</span></div>
         </li>
         <li class="tarif">
-          <div class="haut"><span class="titre">Établissements partenaires</span><span class="prix">180 € <small>/ jour / personne</small></span></div>
-          <div class="jauge" aria-hidden="true"><i style="width:43%"></i></div>
-          <div class="bas"><span class="seuil">dès 8 personnes</span><span class="opco">Finançable OPCO</span> <span class="duree">Inscription individuelle réglée par l’employeur</span></div>
+          <div class="haut"><span class="titre">Classe dédiée à votre établissement</span><span class="prix">350 € <small>/ personne / jour</small></span></div>
+          <div class="jauge" aria-hidden="true"><i style="width:83%"></i></div>
+          <div class="bas"><span class="seuil">dès 4 personnes</span><span class="opco">Finançable OPCO</span> <span class="duree">Vos situations, vos écrits, votre contexte institutionnel</span></div>
+        </li>
+        <li class="tarif">
+          <div class="haut"><span class="titre">Accompagnement individuel ou binôme</span><span class="prix">420 € <small>/ personne / demi-journée</small></span></div>
+          <div class="jauge" aria-hidden="true"><i style="width:100%"></i></div>
+          <div class="bas"><span class="seuil">1 à 2 personnes</span><span class="opco">Finançable OPCO</span> <span class="duree">Demi-journée de 4 h en visio, entièrement centrée sur votre situation</span></div>
+          <p style="font-size:.86rem;line-height:1.5;color:var(--muted);margin:6px 0 0">Pensé pour les <strong style="color:var(--ink);font-weight:600">directions, cadres et fonctions support</strong> : pilotage et management, cadre juridique et responsabilités, systèmes d’information et données (DSI), arbitrages d’usage de l’IA dans l’établissement.</p>
         </li>
       </ul>
 
@@ -621,6 +622,14 @@ form.addEventListener('submit',async e=>{
     btn.disabled=false; btn.textContent="Rejoindre la liste prioritaire";
   }
 });
+
+/* Période visée : toujours ~3 mois et demi après aujourd'hui */
+(function(){
+  const el=document.getElementById('periodeVisee'); if(!el) return;
+  const d=new Date(); d.setDate(d.getDate()+106);
+  const mois=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'][d.getMonth()];
+  el.textContent=mois.charAt(0).toUpperCase()+mois.slice(1)+' '+d.getFullYear();
+})();
 
 /* Catalogue (flipbook chargé seulement à l'ouverture) */
 const dlg=document.getElementById('catalogue');
