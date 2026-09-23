@@ -135,6 +135,23 @@ footer{padding:40px 0;background:var(--anthracite);color:#c9cacb;font-size:.88re
 footer .wrap{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
 footer img{height:84px;width:auto}
 footer a{color:#fff}
+/* jauge tarifaire */
+.tarifs{margin:0;padding:0;list-style:none}
+.tarif{padding:14px 0;border-top:1px solid var(--line)}
+.tarif:first-child{border-top:0}
+.tarif .haut{display:flex;justify-content:space-between;align-items:baseline;gap:14px}
+.tarif .titre{font-weight:600;font-size:.98rem;color:var(--ink)}
+.tarif .prix{font-family:"Libre Baskerville",serif;font-size:1.15rem;color:var(--brand);white-space:nowrap}
+.tarif .prix small{font-family:Inter,sans-serif;font-size:.7rem;color:var(--muted);font-weight:500}
+.tarif .jauge{height:6px;border-radius:3px;background:#ece9e9;margin:8px 0 6px;overflow:hidden}
+.tarif .jauge i{display:block;height:100%;border-radius:3px;background:var(--brand-2)}
+.tarif:nth-child(2) .jauge i{background:#a83f3f}
+.tarif:nth-child(3) .jauge i{background:#bf6060}
+.tarif:nth-child(4) .jauge i{background:#cf8686}
+.tarif .bas{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:.86rem;color:var(--muted)}
+.tarif .seuil{display:inline-block;background:var(--soft);color:var(--brand);border-radius:999px;padding:2px 10px;font-size:.78rem;font-weight:600}
+.surmesure{margin-top:18px;background:var(--soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:14px 16px;font-size:.92rem;color:var(--ink)}
+.surmesure strong{color:var(--brand)}
 .histoire{padding:56px 0;background:var(--paper);border-top:1px solid var(--line)}
 .histoire .grid{align-items:start}
 @media(min-width:860px){.histoire .grid{grid-template-columns:1.6fr 1fr;gap:48px}}
@@ -195,7 +212,7 @@ dialog.flip iframe{width:100%;height:calc(100% - 46px);border:0;display:block;ba
         <dt>Format</dt><dd>Inter-établissements, en visio</dd>
         <dt>Rythme</dt><dd>3 séances de 2 h</dd>
         <dt>Période visée</dt><dd>Novembre 2026</dd>
-        <dt>Financement</dt><dd>Employeur, OPCO, ANFH… selon votre structure</dd>
+        <dt>Financement</dt><dd>OPCO ou budget formation · 250 € / personne dès 6 inscrits</dd>
       </dl>
       <div class="meter">
         <div class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i class="goal"></i><i></i><i></i><i></i><i></i></div>
@@ -222,13 +239,13 @@ dialog.flip iframe{width:100%;height:calc(100% - 46px);border:0;display:block;ba
       <div class="card">
         <div class="num">02</div>
         <h3>Nous souhaitons former une équipe</h3>
-        <p>À partir de 4 professionnels d’un même établissement, une classe dédiée (intra, en visio ou sur site) devient souvent plus avantageuse.</p>
+        <p>Dès 4 professionnels d’un même établissement, une classe dédiée revient à 350 € par personne, contre 420 € en inscription isolée.</p>
         <a class="btn ghost" href="#inscription" data-profil="equipe">Demander une classe dédiée</a>
       </div>
       <div class="card">
         <div class="num">03</div>
         <h3>Je cherche un financement</h3>
-        <p>Budget formation de votre établissement, OPCO ou ANFH : nous vous transmettons le devis et les documents nécessaires à la prise en charge.</p>
+        <p>OPCO ou budget formation de l’établissement : nous transmettons devis, programme et convention. Le tarif baisse à mesure que le groupe se constitue.</p>
         <a class="btn ghost" href="#financement">Voir les pistes</a>
       </div>
     </div>
@@ -282,22 +299,44 @@ dialog.flip iframe{width:100%;height:calc(100% - 46px);border:0;display:block;ba
   </div>
 </section>
 
-<!-- FINANCEMENT -->
+<!-- FINANCEMENT & TARIFS -->
 <section id="financement" style="background:var(--paper);border-block:1px solid var(--line)">
   <div class="wrap grid g2" style="gap:48px;align-items:start">
     <div>
-      <span class="eyebrow">Financement</span>
-      <h2>Une formation finançable par votre établissement ou votre OPCO</h2>
-      <p style="color:var(--muted)">La plupart de nos formations sont prises en charge par le budget formation des établissements ou par leur OPCO. Nous vous fournissons le devis, le programme et la convention pour constituer votre demande.</p>
-      <p class="note">Les règles de prise en charge dépendent de votre structure et de votre financeur. Pensez à anticiper : certains financeurs demandent le dépôt du dossier plusieurs semaines avant le début de la formation.</p>
+      <span class="eyebrow">Financement &amp; tarifs</span>
+      <h2>Plus le groupe se constitue, plus le coût par personne baisse</h2>
+      <p style="color:var(--muted)">C’est tout l’intérêt des listes prioritaires : regrouper des professionnels permet de proposer un tarif par participant nettement plus bas, pour la même exigence pédagogique.</p>
+      <p style="color:var(--muted)">La très grande majorité de nos formations sont prises en charge par <strong>votre OPCO</strong> (OPCO Santé, Uniformation…) ou par le budget formation de votre établissement. Nous vous transmettons devis, programme et convention pour constituer le dossier.</p>
+      <p class="note">Tarifs indicatifs par participant, en visioconférence. Les règles de prise en charge dépendent de votre structure et de votre financeur : certains demandent le dépôt du dossier plusieurs semaines avant le début de la formation.</p>
     </div>
+
     <div>
-    <ol class="fin" style="margin-top:0">
-      <li><strong>Plan de développement des compétences</strong> : le budget formation de votre établissement ou association.</li>
-      <li><strong>OPCO</strong> (OPCO Santé, Uniformation…) ou <strong>ANFH</strong> pour la fonction publique hospitalière, selon votre structure.</li>
-      <li><strong>Classe dédiée</strong> si vous êtes 4 ou plus d’un même établissement : un seul devis, souvent plus avantageux.</li>
-    </ol>
-    <p style="color:var(--muted);font-size:.92rem;margin:4px 0 0 20px">Une autre situation ? Précisez-la dans le formulaire, nous en parlerons ensemble.</p>
+      <ul class="tarifs">
+        <li class="tarif">
+          <div class="haut"><span class="titre">Individuel ou binôme</span><span class="prix">420 € <small>/ personne</small></span></div>
+          <div class="jauge" aria-hidden="true"><i style="width:100%"></i></div>
+          <div class="bas"><span class="seuil">1 à 2 personnes</span> Session courte en visio, accompagnement rapproché</div>
+        </li>
+        <li class="tarif">
+          <div class="haut"><span class="titre">Classe dédiée à votre établissement</span><span class="prix">350 € <small>/ personne</small></span></div>
+          <div class="jauge" aria-hidden="true"><i style="width:83%"></i></div>
+          <div class="bas"><span class="seuil">dès 4 personnes</span> Vos situations, vos écrits, votre contexte institutionnel</div>
+        </li>
+        <li class="tarif">
+          <div class="haut"><span class="titre">Classe inter-établissements</span><span class="prix">250 € <small>/ personne</small></span></div>
+          <div class="jauge" aria-hidden="true"><i style="width:60%"></i></div>
+          <div class="bas"><span class="seuil">dès 6 personnes</span> Groupe mixte, croisement des pratiques — financement OPCO</div>
+        </li>
+        <li class="tarif">
+          <div class="haut"><span class="titre">Établissements partenaires</span><span class="prix">180 € <small>/ jour / personne</small></span></div>
+          <div class="jauge" aria-hidden="true"><i style="width:43%"></i></div>
+          <div class="bas"><span class="seuil">dès 8 personnes</span> Inscription individuelle réglée par l’employeur</div>
+        </li>
+      </ul>
+
+      <div class="surmesure">
+        <strong>Format sur-mesure pour un même établissement.</strong> Nous composons une ou plusieurs séances en visio : soit un parcours transversal sur l’IA, soit un focus sur un sujet précis (écrits professionnels, pilotage, cadre juridique, données et confidentialité).
+      </div>
     </div>
   </div>
 </section>
@@ -455,7 +494,7 @@ dialog.flip iframe{width:100%;height:calc(100% - 46px);border:0;display:block;ba
     <details><summary>Est-ce que je m’engage en rejoignant la liste&nbsp;?</summary><p>Non. Vous exprimez une intention. L’inscription définitive n’intervient qu’après réception des dates, du devis et validation du financement.</p></details>
     <details><summary>Et si le groupe ne se constitue pas&nbsp;?</summary><p>Vous restez sur la liste. Nous vous tenons informé·e et pouvons vous proposer une date alternative ou une autre formule.</p></details>
     <details><summary>Pourquoi des petits groupes&nbsp;?</summary><p>Pour préserver les échanges, les exercices et le travail sur des situations professionnelles réelles, ce qu’une grande classe virtuelle ne permet pas.</p></details>
-    <details><summary>Nous sommes plusieurs du même établissement.</summary><p>À partir de 4 personnes, une classe dédiée est souvent plus économique et permet de travailler sur votre contexte institutionnel. Nous vous proposerons les deux options.</p></details>
+    <details><summary>Nous sommes plusieurs du même établissement.</summary><p>Dès 4 personnes, une classe dédiée à votre établissement revient à 350 € par participant et permet de travailler sur votre contexte. Nous pouvons aussi composer un format sur-mesure, transversal ou centré sur un sujet.</p></details>
     <details><summary>Faut-il du matériel particulier&nbsp;?</summary><p>Un ordinateur avec caméra et micro, une connexion stable. Les prérequis techniques et le lien de connexion vous sont communiqués avant la session.</p></details>
     <div style="text-align:center;margin-top:36px"><a class="btn" href="#inscription">Je rejoins la liste prioritaire →</a></div>
   </div>
