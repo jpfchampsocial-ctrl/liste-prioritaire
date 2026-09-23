@@ -150,6 +150,8 @@ footer a{color:#fff}
 .tarif:nth-child(4) .jauge i{background:#cf8686}
 .tarif .bas{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:.86rem;color:var(--muted)}
 .tarif .seuil{display:inline-block;background:var(--soft);color:var(--brand);border-radius:999px;padding:2px 10px;font-size:.78rem;font-weight:600}
+.tarif .opco{display:inline-block;border:1px solid #cdbaba;color:var(--brand);border-radius:999px;padding:2px 9px;font-size:.74rem;font-weight:600;letter-spacing:.02em}
+.tarif .duree{color:var(--muted)}
 .surmesure{margin-top:18px;background:var(--soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:14px 16px;font-size:.92rem;color:var(--ink)}
 .surmesure strong{color:var(--brand)}
 .histoire{padding:56px 0;background:var(--paper);border-top:1px solid var(--line)}
@@ -307,30 +309,30 @@ dialog.flip iframe{width:100%;height:calc(100% - 46px);border:0;display:block;ba
       <h2>Plus le groupe se constitue, plus le coût par personne baisse</h2>
       <p style="color:var(--muted)">C’est tout l’intérêt des listes prioritaires : regrouper des professionnels permet de proposer un tarif par participant nettement plus bas, pour la même exigence pédagogique.</p>
       <p style="color:var(--muted)">La très grande majorité de nos formations sont prises en charge par <strong>votre OPCO</strong> (OPCO Santé, Uniformation…) ou par le budget formation de votre établissement. Nous vous transmettons devis, programme et convention pour constituer le dossier.</p>
-      <p class="note">Tarifs indicatifs par participant, en visioconférence. Les règles de prise en charge dépendent de votre structure et de votre financeur : certains demandent le dépôt du dossier plusieurs semaines avant le début de la formation.</p>
+      <p class="note">Tarifs indicatifs par participant, en visioconférence. Une journée représente 6 h de formation, réparties en trois séances de 2 h ; une demi-journée, 4 h. Les règles de prise en charge dépendent de votre structure et de votre financeur : certains demandent le dépôt du dossier plusieurs semaines avant le début de la formation.</p>
     </div>
 
     <div>
       <ul class="tarifs">
         <li class="tarif">
-          <div class="haut"><span class="titre">Individuel ou binôme</span><span class="prix">420 € <small>/ personne</small></span></div>
+          <div class="haut"><span class="titre">Individuel ou binôme</span><span class="prix">420 € <small>/ personne / demi-journée</small></span></div>
           <div class="jauge" aria-hidden="true"><i style="width:100%"></i></div>
-          <div class="bas"><span class="seuil">1 à 2 personnes</span> Session courte en visio, accompagnement rapproché</div>
+          <div class="bas"><span class="seuil">1 à 2 personnes</span><span class="opco">Finançable OPCO</span> <span class="duree">Demi-journée de 4 h en visio, accompagnement rapproché</span></div>
         </li>
         <li class="tarif">
-          <div class="haut"><span class="titre">Classe dédiée à votre établissement</span><span class="prix">350 € <small>/ personne</small></span></div>
+          <div class="haut"><span class="titre">Classe dédiée à votre établissement</span><span class="prix">350 € <small>/ personne / jour</small></span></div>
           <div class="jauge" aria-hidden="true"><i style="width:83%"></i></div>
-          <div class="bas"><span class="seuil">dès 4 personnes</span> Vos situations, vos écrits, votre contexte institutionnel</div>
+          <div class="bas"><span class="seuil">dès 4 personnes</span><span class="opco">Finançable OPCO</span> <span class="duree">Vos situations, vos écrits, votre contexte institutionnel</span></div>
         </li>
         <li class="tarif">
-          <div class="haut"><span class="titre">Classe inter-établissements</span><span class="prix">250 € <small>/ personne</small></span></div>
+          <div class="haut"><span class="titre">Classe inter-établissements</span><span class="prix">250 € <small>/ personne / jour</small></span></div>
           <div class="jauge" aria-hidden="true"><i style="width:60%"></i></div>
-          <div class="bas"><span class="seuil">dès 6 personnes</span> Groupe mixte, croisement des pratiques — financement OPCO</div>
+          <div class="bas"><span class="seuil">dès 6 personnes</span><span class="opco">Finançable OPCO</span> <span class="duree">Groupe mixte, croisement des pratiques</span></div>
         </li>
         <li class="tarif">
           <div class="haut"><span class="titre">Établissements partenaires</span><span class="prix">180 € <small>/ jour / personne</small></span></div>
           <div class="jauge" aria-hidden="true"><i style="width:43%"></i></div>
-          <div class="bas"><span class="seuil">dès 8 personnes</span> Inscription individuelle réglée par l’employeur</div>
+          <div class="bas"><span class="seuil">dès 8 personnes</span><span class="opco">Finançable OPCO</span> <span class="duree">Inscription individuelle réglée par l’employeur</span></div>
         </li>
       </ul>
 
