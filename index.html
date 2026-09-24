@@ -896,6 +896,83 @@ document.querySelectorAll('[data-open-catalogue]').forEach(bt=>bt.addEventListen
 dlg.querySelector('[data-close-catalogue]').addEventListener('click',()=>dlg.close());
 dlg.addEventListener('click',e=>{ if(e.target===dlg) dlg.close(); });
 
+/* === MESURE D'AUDIENCE ===
+   Sans cookie et sans identifiant : rien n'est conservé d'une visite à l'autre,
+   rien ne suit le visiteur d'un site à l'autre. Un seul relevé part au moment où
+   la page est quittée. Aucune donnée personnelle : ni adresse IP, ni géolocalisation.
+   Contenu du relevé : origine de la visite, appareil, durée, boutons cliqués,
+   étape du formulaire atteinte, inscription validée ou non. */
+(function(){
+  if(!SCRIPT_URL || !form) return;
+  const T0 = Date.now();
+  const clics = {};
+  let etapeMax = 0, envoye = false;
+
+  const p = new URLSearchParams(location.search);
+  const utm = p.get('utm_source');
+  let origine = 'direct', source = '';
+  if(APPORTEUR){ origine = 'formateur'; source = APPORTEUR; }
+  else if(utm){ origine = 'campagne'; source = utm; }
+  else if(document.referrer){
+    try{
+      const h = new URL(document.referrer).hostname.replace(/^www\./,'');
+      source = h;
+      if(h === location.hostname) origine = 'interne';
+      else if(/google|bing|duckduckgo|qwant|ecosia|yahoo|search/.test(h)) origine = 'moteur';
+      else if(/linkedin|facebook|twitter|x\.com|instagram|youtube|mastodon/.test(h)) origine = 'reseau';
+      else if(/mail|outlook|webmail|gmail/.test(h)) origine = 'e-mail';
+      else origine = 'autre site';
+    }catch(e){}
+  }
+  const appareil = matchMedia('(max-width:760px)').matches ? 'mobile' : 'ordinateur';
+
+  /* boutons d'appel à l'action */
+  document.addEventListener('click', e => {
+    const b = e.target.closest('.btn, [data-open-catalogue], .sticky-cta a');
+    if(!b) return;
+    const t = (b.textContent || '').replace(/\s+/g,' ').trim().slice(0,60) || 'sans libellé';
+    clics[t] = (clics[t] || 0) + 1;
+  }, true);
+
+  /* entonnoir du formulaire : étape la plus avancée réellement atteinte */
+  function marquer(){
+    const a = form.querySelector('.fstep.active');
+    const n = Number(a && a.dataset.step) || 1;
+    if(n > etapeMax) etapeMax = n;
+  }
+  ['focusin','change','click'].forEach(ev => form.addEventListener(ev, marquer, true));
+  try{
+    new MutationObserver(marquer).observe(form,
+      { subtree:true, attributes:true, attributeFilter:['class'] });
+  }catch(e){}
+
+  function envoyer(){
+    if(envoye) return; envoye = true;
+    const ok = document.getElementById('ok');
+    const charge = {
+      type:'visite', token:FORM_TOKEN,
+      origine:origine, source:source, formateur:APPORTEUR, appareil:appareil,
+      duree_s: Math.round((Date.now() - T0) / 1000),
+      etape_max: etapeMax,
+      soumis: !!(ok && ok.classList.contains('show')),
+      clics: Object.keys(clics).map(k => k + ' ×' + clics[k]).join(' · ')
+    };
+    const texte = JSON.stringify(charge);
+    try{
+      if(navigator.sendBeacon){
+        navigator.sendBeacon(SCRIPT_URL, new Blob([texte], {type:'text/plain;charset=UTF-8'}));
+      } else {
+        fetch(SCRIPT_URL, {method:'POST', mode:'no-cors', keepalive:true,
+          headers:{'Content-Type':'text/plain;charset=utf-8'}, body:texte});
+      }
+    }catch(e){}
+  }
+  addEventListener('pagehide', envoyer);
+  document.addEventListener('visibilitychange', () => {
+    if(document.visibilityState === 'hidden') envoyer();
+  });
+})();
+
 /* CTA mobile */
 const cta=document.querySelector('.sticky-cta'), target=document.getElementById('inscription');
 addEventListener('scroll',()=>{const r=target.getBoundingClientRect();cta.classList.toggle('show',scrollY>500&&(r.top>innerHeight||r.bottom<0))},{passive:true});
