@@ -604,25 +604,24 @@ const FORM_TOKEN = "cs-liste-2026";           // doit être identique à TOKEN d
 /* === TRACKING FORMATEURS ===
    Lien personnalisé remis à chaque intervenant :
    https://jpfchampsocial-ctrl.github.io/liste-prioritaire/?f=ABRI
-   Le code est lu à l'arrivée puis mémorisé pour toute la visite : il survit aux clics
-   sur les ancres internes (#inscription, #financement…) et à un rechargement de page.
-   La forme courte …/#ABRI est acceptée aussi, par sécurité, et nettoyée de l'URL. */
-const FORMATEURS = {
-  ABRI:"Achille BRIAL",              JCHE:"Jason CHEVRIER",
-  LCOC:"Laura COCHENNEC",            BDET:"Bertrand DETRE",
-  FELG:"Florence ELGUIZ",            JGOU:"Jean-Philippe GOURVÈS",
-  CNIC:"Christophe NICOLAU-BERGERET",PPEL:"Philippe PELERIN",
-  VPEN:"Valérie PÈNE",               ERHE:"Emmanuel RHETY"
-};
+   Cette page ne connaît aucun nom : elle relaie le code tel quel. Seul le script
+   Google sait à qui il correspond, et lui seul décide si le code est valide.
+   Le code est mémorisé pour toute la visite : il survit aux clics sur les ancres
+   internes (#inscription, #financement…) et à un rechargement de page.
+   La forme courte …/#ABRI est acceptée aussi, puis retirée de l'adresse. */
 const APPORTEUR = (function(){
+  const valide = v => /^[A-Z0-9]{3,8}$/.test(v) ? v : '';
   const p = new URLSearchParams(location.search);
-  let code = String(p.get('f') || p.get('formateur') || '').trim().toUpperCase();
+  let code = valide(String(p.get('f') || p.get('formateur') || '').trim().toUpperCase());
   let viaHash = false;
   if(!code && location.hash){
-    const h = location.hash.replace('#','').trim().toUpperCase();
-    if(FORMATEURS[h]){ code = h; viaHash = true; }
+    const h = location.hash.replace('#','').trim();
+    /* un fragment qui désigne une section de la page n'est pas un code */
+    if(!document.getElementById(h)){
+      const c = valide(h.toUpperCase());
+      if(c){ code = c; viaHash = true; }
+    }
   }
-  if(!FORMATEURS[code]) code = '';
   try{
     if(code) sessionStorage.setItem('cs_apporteur', code);
     else code = sessionStorage.getItem('cs_apporteur') || '';
@@ -692,7 +691,7 @@ form.addEventListener('submit',async e=>{
     type_essms:form.type_essms.value, etablissement:form.etablissement.value.trim(), cp:form.cp.value.trim(),
     message:form.message.value.trim(), site_web:form.site_web.value, duree_ms:duree, token:FORM_TOKEN,
     source:new URLSearchParams(location.search).get('utm_source')||(APPORTEUR?'formateur':'direct'),
-    formateur:APPORTEUR, formateur_nom:FORMATEURS[APPORTEUR]||''
+    formateur:APPORTEUR
   };
   const btn=form.querySelector('[type=submit]'); btn.disabled=true; btn.textContent="Envoi…";
   try{
