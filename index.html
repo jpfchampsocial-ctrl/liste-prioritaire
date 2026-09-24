@@ -600,6 +600,36 @@ dialog.flip iframe{width:100%;height:calc(100% - 46px);border:0;display:block;ba
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw9RxP4IVsoqe1HyAZ5224lg5vwN6wtjYFb-QxE9ksuZhuExGYf8STXdIzx6PScE2qP/exec";
 
 const FORM_TOKEN = "cs-liste-2026";           // doit être identique à TOKEN dans le script Google
+
+/* === TRACKING FORMATEURS ===
+   Lien personnalisé remis à chaque intervenant :
+   https://jpfchampsocial-ctrl.github.io/liste-prioritaire/?f=ABRI
+   Le code est lu à l'arrivée puis mémorisé pour toute la visite : il survit aux clics
+   sur les ancres internes (#inscription, #financement…) et à un rechargement de page.
+   La forme courte …/#ABRI est acceptée aussi, par sécurité, et nettoyée de l'URL. */
+const FORMATEURS = {
+  ABRI:"Achille BRIAL",              JCHE:"Jason CHEVRIER",
+  LCOC:"Laura COCHENNEC",            BDET:"Bertrand DETRE",
+  FELG:"Florence ELGUIZ",            JGOU:"Jean-Philippe GOURVÈS",
+  CNIC:"Christophe NICOLAU-BERGERET",PPEL:"Philippe PELERIN",
+  VPEN:"Valérie PÈNE",               ERHE:"Emmanuel RHETY"
+};
+const APPORTEUR = (function(){
+  const p = new URLSearchParams(location.search);
+  let code = String(p.get('f') || p.get('formateur') || '').trim().toUpperCase();
+  let viaHash = false;
+  if(!code && location.hash){
+    const h = location.hash.replace('#','').trim().toUpperCase();
+    if(FORMATEURS[h]){ code = h; viaHash = true; }
+  }
+  if(!FORMATEURS[code]) code = '';
+  try{
+    if(code) sessionStorage.setItem('cs_apporteur', code);
+    else code = sessionStorage.getItem('cs_apporteur') || '';
+  }catch(e){}
+  if(viaHash && history.replaceState) history.replaceState(null,'',location.pathname+location.search);
+  return code;
+})();
 const PAGE_OUVERTE = Date.now();               // sert à mesurer le temps de remplissage
 const form = document.getElementById('leadForm');
 const steps = [...form.querySelectorAll('.fstep')];
@@ -660,7 +690,9 @@ form.addEventListener('submit',async e=>{
     financement:form.financement.value, prenom:form.prenom.value.trim(), nom:form.nom.value.trim(),
     email:form.email.value.trim(), tel:form.tel.value.trim(), fonction:form.fonction.value.trim(),
     type_essms:form.type_essms.value, etablissement:form.etablissement.value.trim(), cp:form.cp.value.trim(),
-    message:form.message.value.trim(), site_web:form.site_web.value, duree_ms:duree, token:FORM_TOKEN, source:new URLSearchParams(location.search).get('utm_source')||'direct'
+    message:form.message.value.trim(), site_web:form.site_web.value, duree_ms:duree, token:FORM_TOKEN,
+    source:new URLSearchParams(location.search).get('utm_source')||(APPORTEUR?'formateur':'direct'),
+    formateur:APPORTEUR, formateur_nom:FORMATEURS[APPORTEUR]||''
   };
   const btn=form.querySelector('[type=submit]'); btn.disabled=true; btn.textContent="Envoi…";
   try{
