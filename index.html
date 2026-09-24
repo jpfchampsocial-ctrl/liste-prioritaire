@@ -135,6 +135,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand-2);border-
   padding:12px 16px;background:var(--warn);border:1px solid var(--line);border-radius:12px;font-size:.9rem;color:var(--muted)}
 .cond-resume button{background:none;border:0;color:var(--brand);font:600 .9rem inherit;cursor:pointer;text-decoration:underline;padding:0}
 .verrou span{font-size:.88rem}
+[hidden]{display:none !important}
 
 /* faq */
 details{border-bottom:1px solid var(--line);padding:16px 0}
@@ -220,7 +221,7 @@ dialog.flip iframe{width:100%;height:calc(100% - 46px);border:0;display:block;ba
     <div>
       <span class="eyebrow">Formations IA en ESSMS · à distance · petit comité</span>
       <h1>Une formation vous intéresse&nbsp;?</h1>
-      <p class="sub">Réservez votre place&nbsp;: nous fixerons une date ensemble, selon vos plannings.</p>
+      <p class="sub">Inscrivez-vous&nbsp;: nous fixerons une date ensemble, selon vos prérogatives.</p>
       <p class="lead">Indiquez la formation qui vous concerne, vos créneaux et votre période. Dès qu’un groupe compatible se constitue, vous recevez des dates en visio, en premier.</p>
       <ul class="checks">
         <li>Sans engagement</li>
@@ -563,13 +564,13 @@ dialog.flip iframe{width:100%;height:calc(100% - 46px);border:0;display:block;ba
             proposer des dates impossibles.</p>
 
           <div class="cond-resume" id="condResume" hidden>
-            <span>Conditions&nbsp;: tout est souple.</span>
+            <span>Aucune contrainte signalée : nous composerons le groupe au mieux de vos disponibilités.</span>
             <button type="button" id="condRouvrir">Préciser mes conditions</button>
           </div>
 
           <div class="cond" id="condBloc">
             <div style="text-align:right;margin-bottom:-6px">
-              <button type="button" class="btn ghost" id="condPasser" style="padding:7px 16px;font-size:.85rem">Tout est souple, passer</button>
+              <button type="button" class="btn ghost" id="condPasser" style="padding:7px 16px;font-size:.85rem">Je n’ai pas de contrainte →</button>
             </div>
 
             <div class="row">
