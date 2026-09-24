@@ -128,6 +128,13 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand-2);border-
 .ok{display:none;text-align:center;padding:30px 10px}
 .ok.show{display:block}
 .err{color:var(--accent);font-size:.88rem;min-height:1.2em}
+.aide{font-size:.86rem;color:var(--muted);margin:2px 0 10px;font-weight:400}
+.cond{display:grid;gap:14px;padding:16px 18px;background:var(--warn);border-radius:12px;border:1px solid var(--line)}
+.cond > p.aide{margin-top:0}
+.cond-resume{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  padding:12px 16px;background:var(--warn);border:1px solid var(--line);border-radius:12px;font-size:.9rem;color:var(--muted)}
+.cond-resume button{background:none;border:0;color:var(--brand);font:600 .9rem inherit;cursor:pointer;text-decoration:underline;padding:0}
+.verrou span{font-size:.88rem}
 
 /* faq */
 details{border-bottom:1px solid var(--line);padding:16px 0}
@@ -409,7 +416,7 @@ dialog.flip iframe{width:100%;height:calc(100% - 46px);border:0;display:block;ba
     </div>
 
     <div class="card">
-      <div class="progress" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+      <div class="progress" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
       <form id="leadForm" novalidate>
         <!-- étape 1 -->
         <fieldset class="fstep active" data-step="1">
@@ -523,13 +530,144 @@ dialog.flip iframe{width:100%;height:calc(100% - 46px);border:0;display:block;ba
             <div><label for="etablissement">Établissement / association</label><input type="text" id="etablissement" name="etablissement" autocomplete="organization"></div>
             <div><label for="cp">Code postal</label><input type="text" id="cp" name="cp" inputmode="numeric" maxlength="5"></div>
           </div>
+          <div class="row">
+            <div>
+              <label for="famille">Famille professionnelle</label>
+              <select id="famille" name="famille">
+                <option value="">— Choisir —</option>
+                <option value="direction">Direction et encadrement</option>
+                <option value="educatif">Éducatif et social</option>
+                <option value="soin">Soin et paramédical</option>
+                <option value="administratif">Administratif et support</option>
+                <option value="qualite">Qualité, projet et démarche d'évaluation</option>
+                <option value="dsi">Systèmes d'information</option>
+                <option value="autre">Autre</option>
+              </select>
+            </div>
+            <div></div>
+          </div>
           <div><label for="message">Un besoin particulier&nbsp;?</label><textarea id="message" name="message" rows="3" placeholder="Situation professionnelle à travailler, contraintes, questions…"></textarea></div>
           <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
             <label for="site_web">Ne pas remplir ce champ</label>
             <input type="text" id="site_web" name="site_web" tabindex="-1" autocomplete="off">
           </div>
-          <label class="consent"><input type="checkbox" name="consentement" value="oui" required> J’accepte que Champ Social utilise ces informations pour me recontacter au sujet de cette formation. Aucune revente, désinscription sur simple demande (<a href="mentions-legales.html#confidentialite" target="_blank">politique de confidentialité</a>).</label>
           <div class="err" data-err="3"></div>
+          <div class="stepnav"><button type="button" class="btn ghost" data-prev>← Retour</button><button type="button" class="btn" data-next>Continuer →</button></div>
+        </fieldset>
+
+        <!-- étape 4 -->
+        <fieldset class="fstep" data-step="4">
+          <legend>4. Vos conditions</legend>
+          <p class="aide">Tout est souple par défaut. Ne renseignez que ce qui, chez vous, n'est pas négociable&nbsp;:
+            c'est ce qui nous permet de composer un groupe qui vous convienne vraiment, plutôt que de vous
+            proposer des dates impossibles.</p>
+
+          <div class="cond-resume" id="condResume" hidden>
+            <span>Conditions&nbsp;: tout est souple.</span>
+            <button type="button" id="condRouvrir">Préciser mes conditions</button>
+          </div>
+
+          <div class="cond" id="condBloc">
+            <div style="text-align:right;margin-bottom:-6px">
+              <button type="button" class="btn ghost" id="condPasser" style="padding:7px 16px;font-size:.85rem">Tout est souple, passer</button>
+            </div>
+
+            <div class="row">
+              <div>
+                <label>Horaires</label>
+                <div class="chips verrou"><label><input type="checkbox" name="creneau_ferme" value="oui"><span>Mes créneaux sont les seuls possibles</span></label></div>
+              </div>
+              <div>
+                <label>Période</label>
+                <div class="chips verrou"><label><input type="checkbox" name="periode_fermee" value="oui"><span>Ma période est impérative</span></label></div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div>
+                <label for="budget_plafond">Plafond tarifaire</label>
+                <select id="budget_plafond" name="budget_plafond">
+                  <option value="">Sans plafond communiqué</option>
+                  <option value="180">Jusqu'à 180 € par personne</option>
+                  <option value="250">Jusqu'à 250 € par personne</option>
+                  <option value="350">Jusqu'à 350 € par personne</option>
+                  <option value="450">Jusqu'à 450 € par personne</option>
+                  <option value="groupe">Un plafond global pour le groupe</option>
+                </select>
+              </div>
+              <div id="budgetGroupeBloc" hidden>
+                <label for="budget_groupe">Plafond global pour le groupe, en euros</label>
+                <input type="number" id="budget_groupe" name="budget_groupe" min="0" step="50" inputmode="numeric" placeholder="ex. 2000">
+              </div>
+            </div>
+
+            <div class="row">
+              <div>
+                <label>Ouverture à d'autres établissements</label>
+                <div class="chips">
+                  <label><input type="radio" name="mixite_etab" value="ouvert" checked><span>Ouvert</span></label>
+                  <label><input type="radio" name="mixite_etab" value="intra"><span>Notre établissement uniquement</span></label>
+                </div>
+              </div>
+              <div>
+                <label>Ouverture à d'autres métiers</label>
+                <div class="chips">
+                  <label><input type="radio" name="mixite_metiers" value="ouvert" checked><span>Ouvert</span></label>
+                  <label><input type="radio" name="mixite_metiers" value="homogene"><span>Même famille de métier</span></label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div>
+                <label for="effectif_etab">Personnes concernées chez vous</label>
+                <input type="number" id="effectif_etab" name="effectif_etab" min="1" max="60" inputmode="numeric" placeholder="ex. 4">
+              </div>
+              <div>
+                <label for="effectif_max">Taille de groupe maximale acceptée</label>
+                <select id="effectif_max" name="effectif_max">
+                  <option value="">Indifférente</option>
+                  <option value="6">6 personnes au plus</option>
+                  <option value="8">8 personnes au plus</option>
+                  <option value="10">10 personnes au plus</option>
+                  <option value="12">12 personnes au plus</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label>Programme transversal</label>
+              <p class="aide">Nous pouvons réunir plusieurs thématiques du catalogue dans un même programme, construit
+                autour d'un objectif concret — rédiger votre charte IA, par exemple.</p>
+              <div class="chips">
+                <label><input type="radio" name="modularite" value="avoir" checked><span>À voir</span></label>
+                <label><input type="radio" name="modularite" value="oui"><span>Oui, cela m'intéresse</span></label>
+                <label><input type="radio" name="modularite" value="non"><span>Non, une seule thématique</span></label>
+              </div>
+            </div>
+
+            <div id="themesBloc" hidden>
+              <label>Thématiques à réunir</label>
+              <div class="chips">
+                <label><input type="checkbox" name="themes" value="usages"><span>Usages professionnels</span></label>
+                <label><input type="checkbox" name="themes" value="cadres"><span>Encadrement et coordination</span></label>
+                <label><input type="checkbox" name="themes" value="juridique"><span>Cadre juridique et RGPD</span></label>
+                <label><input type="checkbox" name="themes" value="pilotage"><span>Pilotage stratégique</span></label>
+                <label><input type="checkbox" name="themes" value="charte"><span>Charte et gouvernance de l'IA</span></label>
+                <label><input type="checkbox" name="themes" value="ecrits"><span>Écrits professionnels</span></label>
+                <label><input type="checkbox" name="themes" value="donnees"><span>Données et confidentialité</span></label>
+                <label><input type="checkbox" name="themes" value="outils"><span>Prise en main des outils</span></label>
+              </div>
+            </div>
+
+            <div>
+              <label for="objectif">Objectif concret visé</label>
+              <input type="text" id="objectif" name="objectif" maxlength="140" placeholder="ex. rédiger notre charte IA, outiller les écrits professionnels…">
+            </div>
+          </div>
+
+          <label class="consent"><input type="checkbox" name="consentement" value="oui" required> J'accepte que Champ Social utilise ces informations pour me recontacter au sujet de cette formation. Aucune revente, désinscription sur simple demande (<a href="mentions-legales.html#confidentialite" target="_blank">politique de confidentialité</a>).</label>
+          <div class="err" data-err="4"></div>
           <div class="stepnav"><button type="button" class="btn ghost" data-prev>← Retour</button><button type="submit" class="btn">Rejoindre la liste prioritaire</button></div>
         </fieldset>
       </form>
@@ -644,6 +782,25 @@ function show(i){
   cur=i;
 }
 function checked(name){return [...form.querySelectorAll(`[name="${name}"]:checked`)].map(e=>e.value)}
+function radio(name){const e=form.querySelector(`[name="${name}"]:checked`);return e?e.value:''}
+
+/* Étape 4 : blocs conditionnels et raccourci « tout est souple » */
+form.budget_plafond.addEventListener('change',()=>{
+  const g = form.budget_plafond.value === 'groupe';
+  document.getElementById('budgetGroupeBloc').hidden = !g;
+  if(g) form.budget_groupe.focus();
+});
+form.querySelectorAll('[name=modularite]').forEach(r=>r.addEventListener('change',()=>{
+  document.getElementById('themesBloc').hidden = radio('modularite') !== 'oui';
+}));
+document.getElementById('condPasser').addEventListener('click',()=>{
+  document.getElementById('condBloc').hidden = true;
+  document.getElementById('condResume').hidden = false;
+});
+document.getElementById('condRouvrir').addEventListener('click',()=>{
+  document.getElementById('condBloc').hidden = false;
+  document.getElementById('condResume').hidden = true;
+});
 function validate(i){
   const err = form.querySelector(`[data-err="${i+1}"]`); err.textContent="";
   if(i===0){
@@ -655,6 +812,8 @@ function validate(i){
   if(i===2){
     for(const id of ['prenom','nom','fonction']) if(!form[id].value.trim()) return err.textContent="Merci de compléter les champs obligatoires.",false;
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email.value)) return err.textContent="Adresse e-mail invalide.",false;
+  }
+  if(i===3){
     if(!form.consentement.checked) return err.textContent="Merci d’accepter d’être recontacté·e.",false;
   }
   return true;
@@ -675,7 +834,7 @@ document.querySelectorAll('[data-formation],[data-profil]').forEach(a=>a.addEven
 
 form.addEventListener('submit',async e=>{
   e.preventDefault();
-  if(!validate(2)) return;
+  if(!validate(3)) return;
   /* Anti-robots : champ piège rempli ou formulaire rempli en moins de 5 s → on simule un succès sans rien envoyer */
   const duree = Date.now()-PAGE_OUVERTE;
   if(form.site_web.value || duree < 5000){
@@ -689,7 +848,17 @@ form.addEventListener('submit',async e=>{
     financement:form.financement.value, prenom:form.prenom.value.trim(), nom:form.nom.value.trim(),
     email:form.email.value.trim(), tel:form.tel.value.trim(), fonction:form.fonction.value.trim(),
     type_essms:form.type_essms.value, etablissement:form.etablissement.value.trim(), cp:form.cp.value.trim(),
-    message:form.message.value.trim(), site_web:form.site_web.value, duree_ms:duree, token:FORM_TOKEN,
+    message:form.message.value.trim(),
+    famille:form.famille.value,
+    creneau_ferme:form.creneau_ferme.checked ? 'oui' : '',
+    periode_fermee:form.periode_fermee.checked ? 'oui' : '',
+    budget_plafond:form.budget_plafond.value,
+    budget_groupe:form.budget_plafond.value === 'groupe' ? form.budget_groupe.value : '',
+    mixite_etab:radio('mixite_etab'), mixite_metiers:radio('mixite_metiers'),
+    effectif_etab:form.effectif_etab.value, effectif_max:form.effectif_max.value,
+    modularite:radio('modularite'), themes:checked('themes').join(', '),
+    objectif:form.objectif.value.trim(),
+    site_web:form.site_web.value, duree_ms:duree, token:FORM_TOKEN,
     source:new URLSearchParams(location.search).get('utm_source')||(APPORTEUR?'formateur':'direct'),
     formateur:APPORTEUR
   };
@@ -704,7 +873,7 @@ form.addEventListener('submit',async e=>{
     document.getElementById('okFormation').textContent=labels[data.formation]||('« '+data.formation.replace(/^autre : /,'')+' »');
     document.getElementById('ok').classList.add('show');
   }catch(err){
-    form.querySelector('[data-err="3"]').textContent="Envoi impossible pour le moment. Réessayez ou écrivez-nous.";
+    form.querySelector('[data-err="4"]').textContent="Envoi impossible pour le moment. Réessayez ou écrivez-nous.";
     btn.disabled=false; btn.textContent="Rejoindre la liste prioritaire";
   }
 });
